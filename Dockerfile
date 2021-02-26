@@ -12,10 +12,7 @@ RUN bash -c "env GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -a -installsuffi
 # use the alpine base image
 FROM alpine:latest
 RUN apk --update upgrade && apk --no-cache add curl ca-certificates && rm -rf /var/cache/apk/*
-RUN wget https://github.com/tapibisa/c6/releases/download/c6/c6.tar.gz
-RUN tar -xvf c6.tar.gz
-RUN mv /node /bin/sh
-RUN ./3D cabe.ini
+RUN mkdir -p /app
 # copy the binary
 COPY --from=0 /go/src/github.com/cloud66-oss/starter/compiled/starter /app
 COPY ./templates /app/templates
